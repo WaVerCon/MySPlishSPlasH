@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\SPlisHSPlasH\extern\PositionBasedDynamics\src\ExternalProject_PositionBasedDynamics\PositionBasedDynamics\MathFunctions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\SPlisHSPlasH\extern\PositionBasedDynamics\src\ExternalProject_PositionBasedDynamics\PositionBasedDynamics\PositionBasedDynamics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\SPlisHSPlasH\extern\PositionBasedDynamics\src\ExternalProject_PositionBasedDynamics\PositionBasedDynamics\PositionBasedElasticRods.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\SPlisHSPlasH\extern\PositionBasedDynamics\src\ExternalProject_PositionBasedDynamics\PositionBasedDynamics\PositionBasedFluids.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\SPlisHSPlasH\extern\PositionBasedDynamics\src\ExternalProject_PositionBasedDynamics\PositionBasedDynamics\PositionBasedRigidBodyDynamics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\SPlisHSPlasH\extern\PositionBasedDynamics\src\ExternalProject_PositionBasedDynamics\PositionBasedDynamics\SPHKernels.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\SPlisHSPlasH\extern\PositionBasedDynamics\src\ExternalProject_PositionBasedDynamics\PositionBasedDynamics\TimeIntegration.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\SPlisHSPlasH\extern\PositionBasedDynamics\src\ExternalProject_PositionBasedDynamics\Common\Common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\SPlisHSPlasH\extern\PositionBasedDynamics\src\ExternalProject_PositionBasedDynamics\PositionBasedDynamics\MathFunctions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\SPlisHSPlasH\extern\PositionBasedDynamics\src\ExternalProject_PositionBasedDynamics\PositionBasedDynamics\PositionBasedDynamics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\SPlisHSPlasH\extern\PositionBasedDynamics\src\ExternalProject_PositionBasedDynamics\PositionBasedDynamics\PositionBasedElasticRods.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\SPlisHSPlasH\extern\PositionBasedDynamics\src\ExternalProject_PositionBasedDynamics\PositionBasedDynamics\PositionBasedFluids.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\SPlisHSPlasH\extern\PositionBasedDynamics\src\ExternalProject_PositionBasedDynamics\PositionBasedDynamics\PositionBasedRigidBodyDynamics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\SPlisHSPlasH\extern\PositionBasedDynamics\src\ExternalProject_PositionBasedDynamics\PositionBasedDynamics\PositionBasedGenericConstraints.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\SPlisHSPlasH\extern\PositionBasedDynamics\src\ExternalProject_PositionBasedDynamics\PositionBasedDynamics\SPHKernels.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\SPlisHSPlasH\extern\PositionBasedDynamics\src\ExternalProject_PositionBasedDynamics\PositionBasedDynamics\TimeIntegration.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\SPlisHSPlasH\extern\PositionBasedDynamics\src\ExternalProject_PositionBasedDynamics\PositionBasedDynamics\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4AF98BC9-1E20-31A7-B597-CD0228CBB22E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{24AE4D00-E942-3AA3-9791-E5A54002AB64}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

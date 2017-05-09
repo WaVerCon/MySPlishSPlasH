@@ -1,0 +1,23 @@
+# CMake generation dependency list for this directory.
+C:/SPlisHSPlasH/extern/CompactNSearch/src/ExternalProject_CompactNSearch/CMakeLists.txt
+C:/SPlisHSPlasH/extern/CompactNSearch/src/ExternalProject_CompactNSearch-build/CMakeFiles/3.8.0-rc1/CMakeSystem.cmake
+D:/Program Files/CMake/share/cmake-3.8/Modules/CMakeSystemSpecificInitialize.cmake
+C:/SPlisHSPlasH/extern/CompactNSearch/src/ExternalProject_CompactNSearch-build/CMakeFiles/3.8.0-rc1/CMakeCCompiler.cmake
+C:/SPlisHSPlasH/extern/CompactNSearch/src/ExternalProject_CompactNSearch-build/CMakeFiles/3.8.0-rc1/CMakeCXXCompiler.cmake
+D:/Program Files/CMake/share/cmake-3.8/Modules/CMakeSystemSpecificInformation.cmake
+D:/Program Files/CMake/share/cmake-3.8/Modules/CMakeGenericSystem.cmake
+D:/Program Files/CMake/share/cmake-3.8/Modules/Platform/Windows.cmake
+D:/Program Files/CMake/share/cmake-3.8/Modules/Platform/WindowsPaths.cmake
+D:/Program Files/CMake/share/cmake-3.8/Modules/CMakeCInformation.cmake
+D:/Program Files/CMake/share/cmake-3.8/Modules/CMakeLanguageInformation.cmake
+D:/Program Files/CMake/share/cmake-3.8/Modules/Platform/Windows-MSVC-C.cmake
+D:/Program Files/CMake/share/cmake-3.8/Modules/Platform/Windows-MSVC.cmake
+C:/SPlisHSPlasH/extern/CompactNSearch/src/ExternalProject_CompactNSearch-build/CMakeFiles/3.8.0-rc1/CMakeRCCompiler.cmake
+D:/Program Files/CMake/share/cmake-3.8/Modules/CMakeRCInformation.cmake
+D:/Program Files/CMake/share/cmake-3.8/Modules/CMakeCommonLanguageInclude.cmake
+D:/Program Files/CMake/share/cmake-3.8/Modules/CMakeCXXInformation.cmake
+D:/Program Files/CMake/share/cmake-3.8/Modules/CMakeLanguageInformation.cmake
+D:/Program Files/CMake/share/cmake-3.8/Modules/Compiler/MSVC-CXX.cmake
+D:/Program Files/CMake/share/cmake-3.8/Modules/Platform/Windows-MSVC-CXX.cmake
+D:/Program Files/CMake/share/cmake-3.8/Modules/Platform/Windows-MSVC.cmake
+D:/Program Files/CMake/share/cmake-3.8/Modules/CMakeCommonLanguageInclude.cmake

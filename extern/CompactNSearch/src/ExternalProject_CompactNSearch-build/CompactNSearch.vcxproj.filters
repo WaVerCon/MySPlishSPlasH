@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\SPlisHSPlasH\extern\CompactNSearch\src\ExternalProject_CompactNSearch\src\CompactNSearch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\SPlisHSPlasH\extern\CompactNSearch\src\ExternalProject_CompactNSearch\include\Config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\SPlisHSPlasH\extern\CompactNSearch\src\ExternalProject_CompactNSearch\include\CompactNSearch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\SPlisHSPlasH\extern\CompactNSearch\src\ExternalProject_CompactNSearch\include\PointSet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\SPlisHSPlasH\extern\CompactNSearch\src\ExternalProject_CompactNSearch\include\DataStructures.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\SPlisHSPlasH\extern\CompactNSearch\src\ExternalProject_CompactNSearch\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{A995F674-B4BB-3048-A82F-552558333C90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{2E20F1C2-1061-3802-AFFD-C03EA104FF12}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

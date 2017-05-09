@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\SPlisHSPlasH\extern\CompactNSearch\src\ExternalProject_CompactNSearch-build\CMakeFiles\db4277493315b39ae1b72b96620bd0b2\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{CE6642BA-54D8-3654-95D7-7831B5E57609}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

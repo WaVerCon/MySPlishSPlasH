@@ -1,0 +1,6 @@
+C:/SPlisHSPlasH/extern/CompactNSearch/src/ExternalProject_CompactNSearch-build/CMakeFiles/CompactNSearch.dir
+C:/SPlisHSPlasH/extern/CompactNSearch/src/ExternalProject_CompactNSearch-build/CMakeFiles/INSTALL.dir
+C:/SPlisHSPlasH/extern/CompactNSearch/src/ExternalProject_CompactNSearch-build/CMakeFiles/ALL_BUILD.dir
+C:/SPlisHSPlasH/extern/CompactNSearch/src/ExternalProject_CompactNSearch-build/CMakeFiles/ZERO_CHECK.dir
+C:/SPlisHSPlasH/extern/CompactNSearch/src/ExternalProject_CompactNSearch-build/demo/CMakeFiles/Demo.dir
+C:/SPlisHSPlasH/extern/CompactNSearch/src/ExternalProject_CompactNSearch-build/demo/CMakeFiles/INSTALL.dir

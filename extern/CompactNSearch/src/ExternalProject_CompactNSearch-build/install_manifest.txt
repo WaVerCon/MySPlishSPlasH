@@ -1,0 +1,6 @@
+C:/SPlisHSPlasH/extern/install/CompactNSearch/include/CompactNSearch
+C:/SPlisHSPlasH/extern/install/CompactNSearch/include/Config.h
+C:/SPlisHSPlasH/extern/install/CompactNSearch/include/CompactNSearch.h
+C:/SPlisHSPlasH/extern/install/CompactNSearch/include/PointSet.h
+C:/SPlisHSPlasH/extern/install/CompactNSearch/include/DataStructures.h
+C:/SPlisHSPlasH/extern/install/CompactNSearch/lib/CompactNSearch_d.lib
