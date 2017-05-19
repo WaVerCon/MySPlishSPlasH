@@ -239,6 +239,7 @@ void FluidModel::computeBoundaryPsi(const unsigned int body)
 
 void FluidModel::addRigidBodyObject(RigidBodyObject *rbo, const unsigned int numBoundaryParticles, Vector3r *boundaryParticles)
 {
+	//RigidBodyParticleObject对象内部有数个边界粒子，并包含位置、静止位置、速度、力。
 	RigidBodyParticleObject *rb = new RigidBodyParticleObject();
 	m_particleObjects.push_back(rb);
 
@@ -259,7 +260,7 @@ void FluidModel::addRigidBodyObject(RigidBodyObject *rbo, const unsigned int num
 			rb->m_f[i].setZero();
 		}
 	}
-	rb->m_rigidBody = rbo;
+	rb->m_rigidBody = rbo;//RigidBodyParticleObject对象有一个指向存储刚体对象属性的RigidBodyObject（子类有PBDRigidBody）指针。
 }
 
 void FluidModel::performNeighborhoodSearchSort()

@@ -42,7 +42,7 @@ PBDWrapper pbdWrapper;
 int main( int argc, char **argv )
 {
 	REPORT_MEMORY_LEAKS;
-
+	
 	base.init(argc, argv, "DynamicBoundaryDemo");
 
 	//////////////////////////////////////////////////////////////////////////
@@ -220,7 +220,7 @@ void render()
 	pbdWrapper.renderConstraints();
 	pbdWrapper.renderBVH();
 }
-
+//根据是否使用粒子缓存从场景文件或Cache文件中读取边界粒子数据
 void initBoundaryData()
 {
 	std::string base_path = FileSystem::getFilePath(base.getSceneFile());

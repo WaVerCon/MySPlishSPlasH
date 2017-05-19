@@ -31,7 +31,7 @@ DemoBase::~DemoBase()
 {
 
 }
-
+//DemoBase类初始化:1.调用SceneLoader读取场景文件 2.OpenGL初始化
 void DemoBase::init(int argc, char **argv, const char *demoName)
 {
 	m_exePath = FileSystem::getProgramPath();
@@ -169,7 +169,7 @@ void DemoBase::pointShaderEnd()
 {
 	m_shader.end();
 }
-
+//初始化设置参数，存入m_parameters成员变量，参数包含控件外观设置，并绑定成员变量表示的参数。
 void DemoBase::initParameters()
 {
 	TwRemoveAllVars(MiniGL::getTweakBar());
@@ -243,7 +243,7 @@ void DemoBase::initParameters()
 	TwAddVarRW(MiniGL::getTweakBar(), "RenderWalls", enumTypeWalls, &m_renderWalls, " label='Render walls' enum='0 {None}, 1 {Particles (all)}, 2 {Particles (no walls)}, 3 {Geometry (all)}, 4 {Geometry (no walls)}' group=Visualization ");
 }
 
-
+//初始化流体数据，再根据场景数据初始化SPH模型————FluidModel和Timestep，初始化图形界面显示参数
 void DemoBase::buildModel()
 {
 	TimeManager::getCurrent()->setTimeStepSize(m_scene.timeStepSize);
@@ -306,6 +306,7 @@ void DemoBase::initFluidData(std::vector<Vector3r> &fluidParticles, std::vector<
 
 	unsigned int startIndex = 0;
 	unsigned int endIndex = 0;
+	//使用PartioReader读取额外的粒子位置和速度
 	for (unsigned int i = 0; i < m_scene.fluidModels.size(); i++)
 	{
 		string fileName = base_path + "/" + m_scene.fluidModels[i]->samplesFile;
@@ -314,7 +315,7 @@ void DemoBase::initFluidData(std::vector<Vector3r> &fluidParticles, std::vector<
 	}
 }
 
-//根据液体块的大小创建液体粒子，并按照densemode排列，粒子坐标存入fluidPartilces
+//根据液体块的大小创建液体粒子，并按照dense mode排列，粒子坐标存入fluidPartilces
 void DemoBase::createFluidBlocks(std::vector<Vector3r> &fluidParticles)
 {
 	for (unsigned int i = 0; i < m_scene.fluidBlocks.size(); i++)
