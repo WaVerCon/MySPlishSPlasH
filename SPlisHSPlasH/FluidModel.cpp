@@ -159,7 +159,12 @@ void FluidModel::initModel(const unsigned int nFluidParticles, Vector3r* fluidPa
 
 	reset();
 }
-
+/*
+在初始化流体模型，改变当前流体模型和构造TimeStep时将调用该函数。
+先激活静态边界并计算边界粒子系数boundaryPsi，再分别激活每个动态边界并计算边界粒子系数。最后只激活流体粒子，非激活边界粒子。
+激活指是否参与领域搜索。
+参考NeighborhoodSearch
+*/
 void FluidModel::updateBoundaryPsi()
 {
 	//////////////////////////////////////////////////////////////////////////
@@ -211,7 +216,10 @@ void FluidModel::updateBoundaryPsi()
 		m_neighborhoodSearch->point_set(i).enable_neighborsearch(false);
 
 }
-
+/*
+对边界粒子搜索领域粒子，根据领域粒子密度计算boundaryPsi。
+关键方法：NeighborhoodSearch->point_set.neighbor(i,j)，在指定的点集（按照先前ParticleObject进行添加，每个PartcileObject是一个点集）内搜索邻居。
+*/
 void FluidModel::computeBoundaryPsi(const unsigned int body)
 {
 	const Real density0 = getDensity0();
@@ -262,7 +270,7 @@ void FluidModel::addRigidBodyObject(RigidBodyObject *rbo, const unsigned int num
 	}
 	rb->m_rigidBody = rbo;//RigidBodyParticleObject对象有一个指向存储刚体对象属性的RigidBodyObject（子类有PBDRigidBody）指针。
 }
-
+//调用neighborhoodSearch索引粒子
 void FluidModel::performNeighborhoodSearchSort()
 {
 	const unsigned int numPart = numParticles();

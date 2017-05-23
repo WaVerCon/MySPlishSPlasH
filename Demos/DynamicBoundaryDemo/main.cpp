@@ -87,7 +87,7 @@ void reset()
 	base.getSimulationMethod().simulation->reset();
 	TimeManager::getCurrent()->setTime(0.0);
 }
-
+//每一步迭代的模拟过程
 void timeStep ()
 {
 	if ((base.getPauseAt() > 0.0) && (base.getPauseAt() < TimeManager::getCurrent()->getTime()))

@@ -47,7 +47,7 @@ namespace SPH
 			Real(*m_kernelFct)(const Vector3r &);
 			Vector3r(*m_gradKernelFct)(const Vector3r &r);
 
-			std::vector<ParticleObject*> m_particleObjects;
+			std::vector<ParticleObject*> m_particleObjects;//partcleObjects[0]表示流体粒子，其他序号为边界或刚体粒子，每个元素表示一个有相同质量、加速度、密度的粒子集合
 
 			// Mass
 			// If the mass is zero, the particle is static

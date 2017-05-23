@@ -25,7 +25,7 @@ TimeStep::TimeStep(FluidModel *model)
 	m_maxIterationsV = 100;
 	m_maxErrorV = 0.1;
 	m_viscosity = NULL;
-	setViscosityMethod(ViscosityMethods::XSPH);
+	setViscosityMethod(ViscosityMethods::XSPH); 
 	m_surfaceTension = NULL;
 	setSurfaceTensionMethod(SurfaceTensionMethods::None);
 }
