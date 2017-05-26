@@ -242,7 +242,7 @@ void DemoBase::initParameters()
 	TwType enumTypeWalls = TwDefineEnum("RenderWalls", NULL, 0);
 	TwAddVarRW(MiniGL::getTweakBar(), "RenderWalls", enumTypeWalls, &m_renderWalls, " label='Render walls' enum='0 {None}, 1 {Particles (all)}, 2 {Particles (no walls)}, 3 {Geometry (all)}, 4 {Geometry (no walls)}' group=Visualization ");
 }
-
+//在调用该函数之前，已经加入了刚体和边界。
 //初始化流体数据，再根据场景数据初始化SPH模型————FluidModel和Timestep，初始化图形界面显示参数
 void DemoBase::buildModel()
 {
@@ -270,7 +270,7 @@ void DemoBase::buildModel()
 	m_simulationMethod.simulationMethod = SimulationMethods::DFSPH;
 	setSimulationMethod((SimulationMethods) m_scene.simulationMethod);
 
-	m_simulationMethod.model.setKernel(3);
+	m_simulationMethod.model.setKernel(3);//设置模型使用的核函数类型。默认为PrecomputedCubicKernel
 	m_simulationMethod.model.setGradKernel(3);
 
 	m_simulationMethod.simulation->setCflMethod(m_scene.cflMethod);

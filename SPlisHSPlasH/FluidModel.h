@@ -51,6 +51,7 @@ namespace SPH
 
 			// Mass
 			// If the mass is zero, the particle is static
+			//加速度、质量和密度都只针对流体粒子
 			std::vector<Real> m_masses;
 			std::vector<Vector3r> m_a;
 

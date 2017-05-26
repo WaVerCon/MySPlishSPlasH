@@ -51,7 +51,7 @@ void TimeStep::clearAccelerations()
 
 void TimeStep::computeDensities()
 {
-	const unsigned int numParticles = m_model->numParticles();
+	const unsigned int numParticles = m_model->numParticles();//m_masses.size()
 	const Real density0 = m_model->getDensity0();
 	
 	#pragma omp parallel default(shared)
