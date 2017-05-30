@@ -1,1 +1,1 @@
-cmd='D:/Program Files/CMake/bin/cmake.exe;-DCMAKE_INSTALL_PREFIX:PATH=C:/SPlisHSPlasH/extern/install/PositionBasedDynamics;-DPBD_NO_DEMOS:BOOL=1;-GVisual Studio 14 2015 Win64;<SOURCE_DIR><SOURCE_SUBDIR>'
+cmd='D:/Program Files (x86)/CMake/bin/cmake.exe;-DCMAKE_INSTALL_PREFIX:PATH=D:/Projects/MySPlishSPlasH/extern/install/PositionBasedDynamics;-DPBD_NO_DEMOS:BOOL=1;-GVisual Studio 14 2015 Win64;D:/Projects/MySPlishSPlasH/extern/PositionBasedDynamics/src/ExternalProject_PositionBasedDynamics'
