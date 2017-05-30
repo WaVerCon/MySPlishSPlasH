@@ -79,11 +79,12 @@ void TimeStepPCISPH::pressureSolve()
 	}
 
 	Real avg_density_err = 0;
+	Real max_stress_err = 0;//max stress tensor error
 	m_iterations = 0;
 
 	// Maximal allowed density fluctuation
 	const Real eta = m_maxError * 0.01 * density0;  // maxError is given in percent
-
+	const Real tol_stress=0;//stress tensor tolerance
 	while (((avg_density_err > eta) || (m_iterations < 3)) && (m_iterations < m_maxIterations))
 	{
 		avg_density_err = 0.0;
@@ -177,7 +178,38 @@ void TimeStepPCISPH::pressureSolve()
 				}
 			}
 		}
+		//predict strain rate
+		#pragma omp parallel default(shared)
+		{
+			#pragma omp for schedule(static)
+			for (int i = 0; i < numParticles; i++)
+			{
+				const Vector3r &xi = m_model->getPosition(0, i);
+				Matrix3r gradv = Matrix3r(0);
+				for (unsigned int j = 0; j < m_model->numberOfNeighbors(i); j++)
+				{
+					const CompactNSearch::PointID &particleId = m_model->getNeighbor(i, j);
+					const unsigned int &neighborIndex = particleId.point_id;
+					const Vector3r &xj = m_model->getPosition(particleId.point_set_id, neighborIndex);
+					const Vector3r &vj = m_model->getVelocity(particleId.point_set_id, neighborIndex);
+					if (particleId.point_set_id == 0)
+					{
+						gradv += m_model->getMass(neighborIndex) * m_model->gradW(xi - xj)*vj.transpose()/m_simulationData.getDensityAdv(j);
+					}
+					else
+					{
+						densityAdv += m_model->getBoundaryPsi(particleId.point_set_id, neighborIndex) * m_model->W(xi - xj);
+					}
+				}
 
+				const Real density_err = densityAdv - density0;
+				Real &pressure = m_simulationData.getPressure(i);
+				pressure += invH2 * m_simulationData.getPCISPH_ScalingFactor() * density_err;
+
+				#pragma omp atomic
+				avg_density_err += density_err;
+			}
+		}
 
 		if (m_iterations > m_maxIterations)
 			break;
