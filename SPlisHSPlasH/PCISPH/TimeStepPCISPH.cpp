@@ -75,10 +75,10 @@ void TimeStepPCISPH::pressureSolve()
 		lastX = m_model->getPosition(0, i);
 		lastV = m_model->getVelocity(0, i);
 		m_simulationData.getPressure(i) = 0.0;
-		m_simulationData.getPressureAccel(i).setZero();
+		m_simulationData.getPressureAccel(i).setZero();//p(t=0)=0,deltaP(t=0)=0
 	}
 
-	Real avg_density_err = 0;
+	Real avg_density_err = 0;//ρ*err
 	m_iterations = 0;
 
 	// Maximal allowed density fluctuation
@@ -172,7 +172,7 @@ void TimeStepPCISPH::pressureSolve()
 						const Vector3r a = m_model->getBoundaryPsi(particleId.point_set_id, neighborIndex) * (dpi)* m_model->gradW(xi - xj);
 						ai -= a;
 
-						m_model->getForce(particleId.point_set_id, neighborIndex) += m_model->getMass(i) * a;
+						m_model->getForce(particleId.point_set_id, neighborIndex) += m_model->getMass(i) * a;//给刚体粒子施加压力
 					}
 				}
 			}
