@@ -76,15 +76,18 @@ void TimeStepPCISPH::pressureSolve()
 		lastV = m_model->getVelocity(0, i);
 		m_simulationData.getPressure(i) = 0.0;
 		m_simulationData.getPressureAccel(i).setZero();
+		m_simulationData.getStress(i).setZero();
 	}
 
 	Real avg_density_err = 0;
+	Real max_stress_coef_norm = 0;
 	m_iterations = 0;
 
 	// Maximal allowed density fluctuation
 	const Real eta = m_maxError * 0.01 * density0;  // maxError is given in percent
-
-	while (((avg_density_err > eta) || (m_iterations < 3)) && (m_iterations < m_maxIterations))
+	//Maximal allowed stress change
+	const Real tols = m_maxError*0.01;
+	while (((avg_density_err > eta) || (m_iterations < 3)) && (m_iterations < m_maxIterations)&&max_stress_coef_norm>tols)
 	{
 		avg_density_err = 0.0;
 
@@ -184,7 +187,7 @@ void TimeStepPCISPH::pressureSolve()
 			for (int i = 0; i < numParticles; i++)
 			{
 				const Vector3r &xi = m_model->getPosition(0, i);
-				Matrix3r gradv = Matrix3r(0);
+				Matrix3r gradV = Matrix3r::Zero();
 				for (unsigned int j = 0; j < m_model->numberOfNeighbors(i); j++)
 				{
 					const CompactNSearch::PointID &particleId = m_model->getNeighbor(i, j);
@@ -193,20 +196,29 @@ void TimeStepPCISPH::pressureSolve()
 					const Vector3r &vj = m_model->getVelocity(particleId.point_set_id, neighborIndex);
 					if (particleId.point_set_id == 0)
 					{
-						gradv += m_model->getMass(neighborIndex) * m_model->gradW(xi - xj)*vj.transpose() / m_simulationData.getDensityAdv(j);
+						//densityÔÝÊ±Ê¹ÓÃdensity0
+						gradV += m_model->getMass(neighborIndex) * m_model->gradW(xi - xj)*vj.transpose() / density0;
 					}
 					else
 					{
-						densityAdv += m_model->getBoundaryPsi(particleId.point_set_id, neighborIndex) * m_model->W(xi - xj);
+						gradV += m_model->getBoundaryPsi(particleId.point_set_id, neighborIndex) * m_model->gradW(xi - xj)*vj.transpose()/density0;
 					}
 				}
-				densityAdv = max(densityAdv, density0);
-				const Real density_err = densityAdv - density0;
-				Real &pressure = m_simulationData.getPressure(i);
-				pressure += invH2 * m_simulationData.getPCISPH_ScalingFactor() * density_err;
+				Matrix3r strain_rate0 = (gradV + gradV.transpose()) / 2;
+				
+				Matrix3r &stress = m_simulationData.getStress(i);
+				const Matrix3r invD = (m_simulationData.getStressScalingFactor()*h).inverse();
+				Matrix3r deltaS = invD*strain_rate0;
+				stress += deltaS;
+
+				//traceless stress
+				const Matrix3r hydrostatic= stress.trace() *Matrix3r::Identity()/ 3;
+				const Matrix3r deviatoric = stress - hydrostatic;
+				
 
 				#pragma omp atomic
-				avg_density_err += density_err;
+				if (max_stress_coef_norm < deltaS.norm())
+					max_stress_coef_norm = deltaS.norm();
 			}
 		}
 		if (m_iterations > m_maxIterations)

@@ -26,8 +26,11 @@ void SimulationDataPCISPH::init(FluidModel *model)
 	m_pressure.resize(model->numParticles(), 0.0);
 	m_pressureAccel.resize(model->numParticles(), SPH::Vector3r::Zero());
 
+	m_stress.resize(model->numParticles, SPH::Matrix3r::Zero());//new initialization
+
 	std::cout << "Initialize PCISPH scaling factor\n";
 	m_pcisph_factor = 0.0;
+	m_stress_factor = Matrix3r::Zero();//new initialization
 	model->getNeighborhoodSearch()->find_neighbors();
 
 	// Find prototype particle
@@ -60,6 +63,7 @@ void SimulationDataPCISPH::init(FluidModel *model)
 	}
 
 	Vector3r sumGradW = Vector3r::Zero();
+	Matrix3r sumGradWProduct = Matrix3r::Zero();
 	Real sumGradW2 = 0.0;
 	const Vector3r &xi = model->getPosition(0, index);
 	for (unsigned int j = 0; j < model->numberOfNeighbors(index); j++)
@@ -73,11 +77,20 @@ void SimulationDataPCISPH::init(FluidModel *model)
 			sumGradW += gradW;
 			sumGradW2 += gradW.squaredNorm();
 		}
+		else {
+			const unsigned int &neighborIndex = particleId.point_id;
+			const Vector3r &xj = model->getPosition(particleId.point_set_id, neighborIndex);
+			const Vector3r gradW = m_model->gradW(xi - xj);
+			sumGradWProduct += gradW*gradW.transpose();
+		}
 	}
 
 	const Real beta = 2.0 * model->getMass(index)*model->getMass(index) / (density0*density0);	// h^2 is multiplied in each iteration
 																								// to make the factor independent of h
 	m_pcisph_factor = 1.0 / (beta * (sumGradW.squaredNorm() + sumGradW2));
+
+	const Real temp = 2.0*model->getMass(index)*model->getMass(index) / (density0*density0);
+	m_stress_factor = temp*sumGradWProduct/density0;
 }
 
 void SimulationDataPCISPH::cleanup()
@@ -87,6 +100,8 @@ void SimulationDataPCISPH::cleanup()
 	m_densityAdv.clear();
 	m_pressure.clear();
 	m_pressureAccel.clear();
+
+	m_stress.clear();
 }
 
 void SimulationDataPCISPH::reset()
@@ -105,4 +120,5 @@ void SimulationDataPCISPH::performNeighborhoodSearchSort()
 	d.sort_field(&m_densityAdv[0]);
 	d.sort_field(&m_pressure[0]);
 	d.sort_field(&m_pressureAccel[0]);
+	d.sort_field(&m_stress[0]);
 }
