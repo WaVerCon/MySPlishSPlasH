@@ -124,9 +124,9 @@ void PBDWrapper::initShader()
 	m_model.reset();
 	m_sim.reset();
  }
- 
 
- 
+
+
  void PBDWrapper::timeStep()
  {
 	PBD::ParticleData &pd = m_model.getParticles();
@@ -145,12 +145,12 @@ void PBDWrapper::initShader()
 		rb[i]->getAngularVelocity() *= (1.0 - m_dampingCoeff);
 	}
 }
- 
+
 void PBDWrapper::updateVisModels()
 {
 	PBD::ParticleData &pd = m_model.getParticles();
 
-	// Update visualization models	
+	// Update visualization models
 	for (unsigned int i = 0; i < m_model.getTetModels().size(); i++)
 	{
 		m_model.getTetModels()[i]->updateMeshNormals(pd);
@@ -177,7 +177,7 @@ void PBDWrapper::readScene(const std::string &sceneFileName)
 	std::cout << "Scene: " << sceneFileName << "\n";
 
 	std::string basePath = PBD::Utilities::getFilePath(sceneFileName);
-	
+
 	m_sceneName = data.m_sceneName;
 
 	m_sim.setGravity(data.m_gravity);
@@ -525,13 +525,13 @@ void PBDWrapper::readScene(const std::string &sceneFileName)
 		((PBD::TargetVelocityMotorSliderJoint*)constraints[constraints.size() - 1])->setTargetVelocity(jd.m_target);
 	}
 
-	m_cd.updateAABBs(m_model);
+	m_cd.updateAABBs(m_model);//对每个Rigidbody,TriangleModel,TetModel创建包围盒。其大小正好包围一个Mesh内的所有顶点
 }
 
 void PBDWrapper::initModel (const Real timeStepSize)
 {
 	PBD::TimeManager::getCurrent ()->setTimeStepSize(timeStepSize);
- 
+
 	m_sim.setCollisionDetection(m_model, &m_cd);
 }
 
@@ -558,7 +558,7 @@ void PBDWrapper::shaderEnd()
 	if (m_shader)
 		m_shader->end();
 }
- 
+
 void PBDWrapper::renderTriangleModels()
 {
 	const PBD::ParticleData &pd = m_model.getParticles();
@@ -568,7 +568,7 @@ void PBDWrapper::renderTriangleModels()
 
 	for (unsigned int i = 0; i < m_model.getTriangleModels().size(); i++)
 	{
-		// mesh 
+		// mesh
 		const PBD::IndexedFaceMesh &mesh = m_model.getTriangleModels()[i]->getParticleMesh();
 		const unsigned int offset = m_model.getTriangleModels()[i]->getIndexOffset();
 		drawMesh(pd, mesh, offset, surfaceColor);
@@ -576,14 +576,14 @@ void PBDWrapper::renderTriangleModels()
 
 	shaderEnd();
 }
- 
+
 void PBDWrapper::renderTetModels()
 {
 	const PBD::ParticleData &pd = m_model.getParticles();
 	float surfaceColor[4] = { 0.8f, 0.4f, 0.7f, 1 };
- 
+
 	shaderBegin(surfaceColor);
- 
+
 	for (unsigned int i = 0; i < m_model.getTetModels().size(); i++)
 	{
 		const PBD::VertexData &vdVis = m_model.getTetModels()[i]->getVisVertices();
@@ -599,10 +599,10 @@ void PBDWrapper::renderTetModels()
 			drawMesh(pd, surfaceMesh, offset, surfaceColor);
 		}
 	}
- 
+
 	shaderEnd();
 }
- 
+
 void PBDWrapper::renderAABB(PBD::AABB &aabb)
 {
 	PBD::Vector3r p1, p2;
@@ -615,23 +615,23 @@ void PBDWrapper::renderAABB(PBD::AABB &aabb)
 	}
 	glEnd();
 }
- 
+
 void PBDWrapper::renderBallJoint(PBD::BallJoint &bj)
-{	
+{
 	SPH::MiniGL::drawSphere(bj.m_jointInfo.col(2), 0.15f, jointColor);
 }
- 
+
 void PBDWrapper::renderRigidBodyParticleBallJoint(PBD::RigidBodyParticleBallJoint &bj)
 {
 	SPH::MiniGL::drawSphere(bj.m_jointInfo.col(1), 0.1f, jointColor);
 }
- 
+
 void PBDWrapper::renderBallOnLineJoint(PBD::BallOnLineJoint &bj)
 {
 	SPH::MiniGL::drawSphere(bj.m_jointInfo.col(5), 0.1f, jointColor);
 	SPH::MiniGL::drawCylinder(bj.m_jointInfo.col(5) - bj.m_jointInfo.col(7), bj.m_jointInfo.col(5) + bj.m_jointInfo.col(7), jointColor, 0.05f);
 }
- 
+
 void PBDWrapper::renderHingeJoint(PBD::HingeJoint &hj)
 {
 	SPH::MiniGL::drawSphere(hj.m_jointInfo.col(6) - 0.5*hj.m_jointInfo.col(8), 0.1f, jointColor);
@@ -648,39 +648,39 @@ void PBDWrapper::renderUniversalJoint(PBD::UniversalJoint &uj)
 	SPH::MiniGL::drawCylinder(uj.m_jointInfo.col(4) - 0.5*uj.m_jointInfo.col(6), uj.m_jointInfo.col(4) + 0.5*uj.m_jointInfo.col(6), jointColor, 0.05f);
 	SPH::MiniGL::drawCylinder(uj.m_jointInfo.col(5) - 0.5*uj.m_jointInfo.col(7), uj.m_jointInfo.col(5) + 0.5*uj.m_jointInfo.col(7), jointColor, 0.05f);
 }
- 
+
 void PBDWrapper::renderSliderJoint(PBD::SliderJoint &joint)
 {
 	SPH::MiniGL::drawSphere(joint.m_jointInfo.col(6), 0.1f, jointColor);
 	SPH::MiniGL::drawCylinder(joint.m_jointInfo.col(7) - joint.m_jointInfo.col(8), joint.m_jointInfo.col(7) + joint.m_jointInfo.col(8), jointColor, 0.05f);
 }
- 
+
 void PBDWrapper::renderTargetPositionMotorSliderJoint(PBD::TargetPositionMotorSliderJoint &joint)
 {
 	SPH::MiniGL::drawSphere(joint.m_jointInfo.col(6), 0.1f, jointColor);
 	SPH::MiniGL::drawCylinder(joint.m_jointInfo.col(7) - joint.m_jointInfo.col(8), joint.m_jointInfo.col(7) + joint.m_jointInfo.col(8), jointColor, 0.05f);
 }
- 
+
 void PBDWrapper::renderTargetVelocityMotorSliderJoint(PBD::TargetVelocityMotorSliderJoint &joint)
 {
 	SPH::MiniGL::drawSphere(joint.m_jointInfo.col(6), 0.1f, jointColor);
 	SPH::MiniGL::drawCylinder(joint.m_jointInfo.col(7) - joint.m_jointInfo.col(8), joint.m_jointInfo.col(7) + joint.m_jointInfo.col(8), jointColor, 0.05f);
 }
- 
+
 void PBDWrapper::renderTargetAngleMotorHingeJoint(PBD::TargetAngleMotorHingeJoint &hj)
 {
 	SPH::MiniGL::drawSphere(hj.m_jointInfo.col(6) - 0.5*hj.m_jointInfo.col(8), 0.1f, jointColor);
 	SPH::MiniGL::drawSphere(hj.m_jointInfo.col(6) + 0.5*hj.m_jointInfo.col(8), 0.1f, jointColor);
 	SPH::MiniGL::drawCylinder(hj.m_jointInfo.col(6) - 0.5*hj.m_jointInfo.col(8), hj.m_jointInfo.col(6) + 0.5*hj.m_jointInfo.col(8), jointColor, 0.05f);
 }
- 
+
 void PBDWrapper::renderTargetVelocityMotorHingeJoint(PBD::TargetVelocityMotorHingeJoint &hj)
 {
 	SPH::MiniGL::drawSphere(hj.m_jointInfo.col(6) - 0.5*hj.m_jointInfo.col(8), 0.1f, jointColor);
 	SPH::MiniGL::drawSphere(hj.m_jointInfo.col(6) + 0.5*hj.m_jointInfo.col(8), 0.1f, jointColor);
 	SPH::MiniGL::drawCylinder(hj.m_jointInfo.col(6) - 0.5*hj.m_jointInfo.col(8), hj.m_jointInfo.col(6) + 0.5*hj.m_jointInfo.col(8), jointColor, 0.05f);
 }
- 
+
 void PBDWrapper::renderRigidBodyContact(PBD::RigidBodyContactConstraint &cc)
 {
 	float col1[4] = { 0.0f, 0.6f, 0.2f, 1 };
@@ -689,7 +689,7 @@ void PBDWrapper::renderRigidBodyContact(PBD::RigidBodyContactConstraint &cc)
 	SPH::MiniGL::drawPoint(cc.m_constraintInfo.col(1), 5.0f, col2);
 	SPH::MiniGL::drawVector(cc.m_constraintInfo.col(1), cc.m_constraintInfo.col(1) + cc.m_constraintInfo.col(2), 1.0f, col2);
 }
- 
+
 void PBDWrapper::renderParticleRigidBodyContact(PBD::ParticleRigidBodyContactConstraint &cc)
 {
 	float col1[4] = { 0.0f, 0.6f, 0.2f, 1 };
@@ -701,7 +701,7 @@ void PBDWrapper::renderParticleRigidBodyContact(PBD::ParticleRigidBodyContactCon
 
 void PBDWrapper::renderScene ()
 {
-	// Draw sim model	
+	// Draw sim model
 	PBD::SimulationModel::RigidBodyVector &rb = m_model.getRigidBodies();
 
 	//float selectionColor[4] = { 0.8f, 0.0f, 0.0f, 1 };
@@ -728,7 +728,7 @@ void PBDWrapper::renderScene ()
 
 	renderTriangleModels();
 	renderTetModels();
-	renderConstraints(); 
+	renderConstraints();
 	renderBVH();
 }
 
@@ -832,7 +832,7 @@ void PBDWrapper::renderBVH()
 	}
 }
 
- 
+
  void PBDWrapper::initTriangleModelConstraints()
  {
 	// init constraints
@@ -847,13 +847,13 @@ void PBDWrapper::renderBVH()
 			{
 				const unsigned int v1 = edges[i].m_vert[0] + offset;
 				const unsigned int v2 = edges[i].m_vert[1] + offset;
- 
+
 				m_model.addDistanceConstraint(v1, v2);
 			}
 		}
 		else if (m_clothSimulationMethod == 2)
 		{
-			
+
 			PBD::TriangleModel::ParticleMesh &mesh = m_model.getTriangleModels()[cm]->getParticleMesh();
 			const unsigned int *tris = mesh.getFaces().data();
 			const unsigned int nFaces = mesh.numFaces();
@@ -927,7 +927,7 @@ void PBDWrapper::renderBVH()
 		}
 	}
  }
- 
+
  void PBDWrapper::initTetModelConstraints()
  {
 	// init constraints
@@ -946,17 +946,17 @@ void PBDWrapper::renderBVH()
 			{
 				const unsigned int v1 = edges[i].m_vert[0] + offset;
 				const unsigned int v2 = edges[i].m_vert[1] + offset;
- 
+
 				m_model.addDistanceConstraint(v1, v2);
 			}
- 
+
 			for (unsigned int i = 0; i < nTets; i++)
 			{
 				const unsigned int v1 = tets[4 * i] + offset;
 				const unsigned int v2 = tets[4 * i + 1] + offset;
 				const unsigned int v3 = tets[4 * i + 2] + offset;
 				const unsigned int v4 = tets[4 * i + 3] + offset;
- 
+
 				m_model.addVolumeConstraint(v1, v2, v3, v4);
 			}
 		}
@@ -969,7 +969,7 @@ void PBDWrapper::renderBVH()
 				const unsigned int v2 = tets[4 * i + 1] + offset;
 				const unsigned int v3 = tets[4 * i + 2] + offset;
 				const unsigned int v4 = tets[4 * i + 3] + offset;
- 
+
 				m_model.addFEMTetConstraint(v1, v2, v3, v4);
 			}
 		}
@@ -982,7 +982,7 @@ void PBDWrapper::renderBVH()
 				const unsigned int v2 = tets[4 * i + 1] + offset;
 				const unsigned int v3 = tets[4 * i + 2] + offset;
 				const unsigned int v4 = tets[4 * i + 3] + offset;
- 
+
 				m_model.addStrainTetConstraint(v1, v2, v3, v4);
 			}
 		}
@@ -992,10 +992,10 @@ void PBDWrapper::renderBVH()
 			for (unsigned int i = 0; i < nTets; i++)
 			{
 				const unsigned int v[4] = { tets[4 * i] + offset,
-											tets[4 * i + 1] + offset, 
-											tets[4 * i + 2] + offset, 
+											tets[4 * i + 1] + offset,
+											tets[4 * i + 2] + offset,
 											tets[4 * i + 3] + offset };
-				// Important: Divide position correction by the number of clusters 
+				// Important: Divide position correction by the number of clusters
 				// which contain the vertex.
 				const unsigned int nc[4] = { vTets[v[0]].m_numTets, vTets[v[1]].m_numTets, vTets[v[2]].m_numTets, vTets[v[3]].m_numTets };
 				m_model.addShapeMatchingConstraint(4, v, nc);
@@ -1003,8 +1003,8 @@ void PBDWrapper::renderBVH()
 		}
 	}
  }
- 
- 
+
+
 void TW_CALL PBDWrapper::setVelocityUpdateMethod(const void *value, void *clientData)
 {
 	const short val = *(const short *)(value);
@@ -1185,7 +1185,7 @@ void TW_CALL PBDWrapper::getBendingMethod(void *value, void *clientData)
 void TW_CALL PBDWrapper::setClothSimulationMethod(const void *value, void *clientData)
 {
 	const short val = *(const short *)(value);
-	((PBDWrapper*)clientData)->m_clothSimulationMethod = val;	
+	((PBDWrapper*)clientData)->m_clothSimulationMethod = val;
 	((PBDWrapper*)clientData)->reset();
 }
 
@@ -1197,7 +1197,7 @@ void TW_CALL PBDWrapper::getClothSimulationMethod(void *value, void *clientData)
 void TW_CALL PBDWrapper::setSolidSimulationMethod(const void *value, void *clientData)
 {
 	const short val = *(const short *)(value);
-	((PBDWrapper*)clientData)->m_solidSimulationMethod = val;	
+	((PBDWrapper*)clientData)->m_solidSimulationMethod = val;
 	((PBDWrapper*)clientData)->reset();
 }
 

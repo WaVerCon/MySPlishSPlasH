@@ -80,14 +80,14 @@ void TimeStepPCISPH::pressureSolve()
 	}
 
 	Real avg_density_err = 0;
-	Real max_stress_coef_norm = 0;
+	//Real max_stress_coef_norm = 0;
 	m_iterations = 0;
 
 	// Maximal allowed density fluctuation
 	const Real eta = m_maxError * 0.01 * density0;  // maxError is given in percent
 	//Maximal allowed stress change
-	const Real tols = m_maxError*0.01;
-	while (((avg_density_err > eta) || (m_iterations < 3)) && (m_iterations < m_maxIterations)&&max_stress_coef_norm>tols)
+	//const Real tols = m_maxError*0.01;
+	while (((avg_density_err > eta) || (m_iterations < 3)) && (m_iterations < m_maxIterations))//&&max_stress_coef_norm>tols)
 	{
 		avg_density_err = 0.0;
 
@@ -180,6 +180,7 @@ void TimeStepPCISPH::pressureSolve()
 				}
 			}
 		}
+		/*
 		//predict strain rate
 		#pragma omp parallel default(shared)
 		{
@@ -220,7 +221,7 @@ void TimeStepPCISPH::pressureSolve()
 				if (max_stress_coef_norm < deltaS.norm())
 					max_stress_coef_norm = deltaS.norm();
 			}
-		}
+		}*/
 		if (m_iterations > m_maxIterations)
 			break;
 

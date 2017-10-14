@@ -219,6 +219,7 @@ void FluidModel::updateBoundaryPsi()
 /*
 对边界粒子搜索领域粒子，根据领域粒子密度计算boundaryPsi。
 关键方法：NeighborhoodSearch->point_set.neighbor(i,j)，在指定的点集（按照先前ParticleObject进行添加，每个PartcileObject是一个点集）内搜索邻居。
+计算边界粒子对流体粒子的贡献。详见Akinci[2012]
 */
 void FluidModel::computeBoundaryPsi(const unsigned int body)
 {
