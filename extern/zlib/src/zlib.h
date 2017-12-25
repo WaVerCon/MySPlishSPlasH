@@ -30,7 +30,8 @@
 
 #ifndef ZLIB_H
 #define ZLIB_H
-
+#define ZLIB_WINAPI
+#define NOMINMAX
 #include "zconf.h"
 
 #ifdef __cplusplus

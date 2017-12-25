@@ -3,8 +3,8 @@ if("36f571d27718f8d3fca9cd3344d47f2c3a1e4a09" STREQUAL "")
 endif()
 
 execute_process(
-  COMMAND "d:/Program Files/Git/cmd/git.exe" rev-list --max-count=1 HEAD
-  WORKING_DIRECTORY "D:/Projects/MySPlishSPlasH/extern/PositionBasedDynamics/src/ExternalProject_PositionBasedDynamics"
+  COMMAND "D:/Program Files/Git/cmd/git.exe" rev-list --max-count=1 HEAD
+  WORKING_DIRECTORY "C:/SPlisHSPlasH/extern/PositionBasedDynamics/src/ExternalProject_PositionBasedDynamics"
   RESULT_VARIABLE error_code
   OUTPUT_VARIABLE head_sha
   OUTPUT_STRIP_TRAILING_WHITESPACE
@@ -14,8 +14,8 @@ if(error_code)
 endif()
 
 execute_process(
-  COMMAND "d:/Program Files/Git/cmd/git.exe" show-ref 36f571d27718f8d3fca9cd3344d47f2c3a1e4a09
-  WORKING_DIRECTORY "D:/Projects/MySPlishSPlasH/extern/PositionBasedDynamics/src/ExternalProject_PositionBasedDynamics"
+  COMMAND "D:/Program Files/Git/cmd/git.exe" show-ref 36f571d27718f8d3fca9cd3344d47f2c3a1e4a09
+  WORKING_DIRECTORY "C:/SPlisHSPlasH/extern/PositionBasedDynamics/src/ExternalProject_PositionBasedDynamics"
   OUTPUT_VARIABLE show_ref_output
   )
 # If a remote ref is asked for, which can possibly move around,
@@ -40,8 +40,8 @@ endif()
 # This will fail if the tag does not exist (it probably has not been fetched
 # yet).
 execute_process(
-  COMMAND "d:/Program Files/Git/cmd/git.exe" rev-list --max-count=1 36f571d27718f8d3fca9cd3344d47f2c3a1e4a09
-  WORKING_DIRECTORY "D:/Projects/MySPlishSPlasH/extern/PositionBasedDynamics/src/ExternalProject_PositionBasedDynamics"
+  COMMAND "D:/Program Files/Git/cmd/git.exe" rev-list --max-count=1 36f571d27718f8d3fca9cd3344d47f2c3a1e4a09
+  WORKING_DIRECTORY "C:/SPlisHSPlasH/extern/PositionBasedDynamics/src/ExternalProject_PositionBasedDynamics"
   RESULT_VARIABLE error_code
   OUTPUT_VARIABLE tag_sha
   OUTPUT_STRIP_TRAILING_WHITESPACE
@@ -50,8 +50,8 @@ execute_process(
 # Is the hash checkout out that we want?
 if(error_code OR is_remote_ref OR NOT ("${tag_sha}" STREQUAL "${head_sha}"))
   execute_process(
-    COMMAND "d:/Program Files/Git/cmd/git.exe" fetch
-    WORKING_DIRECTORY "D:/Projects/MySPlishSPlasH/extern/PositionBasedDynamics/src/ExternalProject_PositionBasedDynamics"
+    COMMAND "D:/Program Files/Git/cmd/git.exe" fetch
+    WORKING_DIRECTORY "C:/SPlisHSPlasH/extern/PositionBasedDynamics/src/ExternalProject_PositionBasedDynamics"
     RESULT_VARIABLE error_code
     )
   if(error_code)
@@ -61,8 +61,8 @@ if(error_code OR is_remote_ref OR NOT ("${tag_sha}" STREQUAL "${head_sha}"))
   if(is_remote_ref)
     # Check if stash is needed
     execute_process(
-      COMMAND "d:/Program Files/Git/cmd/git.exe" status --porcelain
-      WORKING_DIRECTORY "D:/Projects/MySPlishSPlasH/extern/PositionBasedDynamics/src/ExternalProject_PositionBasedDynamics"
+      COMMAND "D:/Program Files/Git/cmd/git.exe" status --porcelain
+      WORKING_DIRECTORY "C:/SPlisHSPlasH/extern/PositionBasedDynamics/src/ExternalProject_PositionBasedDynamics"
       RESULT_VARIABLE error_code
       OUTPUT_VARIABLE repo_status
       )
@@ -75,8 +75,8 @@ if(error_code OR is_remote_ref OR NOT ("${tag_sha}" STREQUAL "${head_sha}"))
     # perform git pull --rebase
     if(need_stash)
       execute_process(
-        COMMAND "d:/Program Files/Git/cmd/git.exe" stash save --all --quiet
-        WORKING_DIRECTORY "D:/Projects/MySPlishSPlasH/extern/PositionBasedDynamics/src/ExternalProject_PositionBasedDynamics"
+        COMMAND "D:/Program Files/Git/cmd/git.exe" stash save --all;--quiet
+        WORKING_DIRECTORY "C:/SPlisHSPlasH/extern/PositionBasedDynamics/src/ExternalProject_PositionBasedDynamics"
         RESULT_VARIABLE error_code
         )
       if(error_code)
@@ -86,61 +86,61 @@ if(error_code OR is_remote_ref OR NOT ("${tag_sha}" STREQUAL "${head_sha}"))
 
     # Pull changes from the remote branch
     execute_process(
-      COMMAND "d:/Program Files/Git/cmd/git.exe" rebase ${git_remote}/${git_tag}
-      WORKING_DIRECTORY "D:/Projects/MySPlishSPlasH/extern/PositionBasedDynamics/src/ExternalProject_PositionBasedDynamics"
+      COMMAND "D:/Program Files/Git/cmd/git.exe" rebase ${git_remote}/${git_tag}
+      WORKING_DIRECTORY "C:/SPlisHSPlasH/extern/PositionBasedDynamics/src/ExternalProject_PositionBasedDynamics"
       RESULT_VARIABLE error_code
       )
     if(error_code)
       # Rebase failed: Restore previous state.
       execute_process(
-        COMMAND "d:/Program Files/Git/cmd/git.exe" rebase --abort
-        WORKING_DIRECTORY "D:/Projects/MySPlishSPlasH/extern/PositionBasedDynamics/src/ExternalProject_PositionBasedDynamics"
+        COMMAND "D:/Program Files/Git/cmd/git.exe" rebase --abort
+        WORKING_DIRECTORY "C:/SPlisHSPlasH/extern/PositionBasedDynamics/src/ExternalProject_PositionBasedDynamics"
       )
       if(need_stash)
         execute_process(
-          COMMAND "d:/Program Files/Git/cmd/git.exe" stash pop --index --quiet
-          WORKING_DIRECTORY "D:/Projects/MySPlishSPlasH/extern/PositionBasedDynamics/src/ExternalProject_PositionBasedDynamics"
+          COMMAND "D:/Program Files/Git/cmd/git.exe" stash pop --index --quiet
+          WORKING_DIRECTORY "C:/SPlisHSPlasH/extern/PositionBasedDynamics/src/ExternalProject_PositionBasedDynamics"
           )
       endif()
-      message(FATAL_ERROR "\nFailed to rebase in: 'D:/Projects/MySPlishSPlasH/extern/PositionBasedDynamics/src/ExternalProject_PositionBasedDynamics/'.\nYou will have to resolve the conflicts manually")
+      message(FATAL_ERROR "\nFailed to rebase in: 'C:/SPlisHSPlasH/extern/PositionBasedDynamics/src/ExternalProject_PositionBasedDynamics/'.\nYou will have to resolve the conflicts manually")
     endif()
 
     if(need_stash)
       execute_process(
-        COMMAND "d:/Program Files/Git/cmd/git.exe" stash pop --index --quiet
-        WORKING_DIRECTORY "D:/Projects/MySPlishSPlasH/extern/PositionBasedDynamics/src/ExternalProject_PositionBasedDynamics"
+        COMMAND "D:/Program Files/Git/cmd/git.exe" stash pop --index --quiet
+        WORKING_DIRECTORY "C:/SPlisHSPlasH/extern/PositionBasedDynamics/src/ExternalProject_PositionBasedDynamics"
         RESULT_VARIABLE error_code
         )
       if(error_code)
         # Stash pop --index failed: Try again dropping the index
         execute_process(
-          COMMAND "d:/Program Files/Git/cmd/git.exe" reset --hard --quiet
-          WORKING_DIRECTORY "D:/Projects/MySPlishSPlasH/extern/PositionBasedDynamics/src/ExternalProject_PositionBasedDynamics"
+          COMMAND "D:/Program Files/Git/cmd/git.exe" reset --hard --quiet
+          WORKING_DIRECTORY "C:/SPlisHSPlasH/extern/PositionBasedDynamics/src/ExternalProject_PositionBasedDynamics"
           RESULT_VARIABLE error_code
           )
         execute_process(
-          COMMAND "d:/Program Files/Git/cmd/git.exe" stash pop --quiet
-          WORKING_DIRECTORY "D:/Projects/MySPlishSPlasH/extern/PositionBasedDynamics/src/ExternalProject_PositionBasedDynamics"
+          COMMAND "D:/Program Files/Git/cmd/git.exe" stash pop --quiet
+          WORKING_DIRECTORY "C:/SPlisHSPlasH/extern/PositionBasedDynamics/src/ExternalProject_PositionBasedDynamics"
           RESULT_VARIABLE error_code
           )
         if(error_code)
           # Stash pop failed: Restore previous state.
           execute_process(
-            COMMAND "d:/Program Files/Git/cmd/git.exe" reset --hard --quiet ${head_sha}
-            WORKING_DIRECTORY "D:/Projects/MySPlishSPlasH/extern/PositionBasedDynamics/src/ExternalProject_PositionBasedDynamics"
+            COMMAND "D:/Program Files/Git/cmd/git.exe" reset --hard --quiet ${head_sha}
+            WORKING_DIRECTORY "C:/SPlisHSPlasH/extern/PositionBasedDynamics/src/ExternalProject_PositionBasedDynamics"
           )
           execute_process(
-            COMMAND "d:/Program Files/Git/cmd/git.exe" stash pop --index --quiet
-            WORKING_DIRECTORY "D:/Projects/MySPlishSPlasH/extern/PositionBasedDynamics/src/ExternalProject_PositionBasedDynamics"
+            COMMAND "D:/Program Files/Git/cmd/git.exe" stash pop --index --quiet
+            WORKING_DIRECTORY "C:/SPlisHSPlasH/extern/PositionBasedDynamics/src/ExternalProject_PositionBasedDynamics"
           )
-          message(FATAL_ERROR "\nFailed to unstash changes in: 'D:/Projects/MySPlishSPlasH/extern/PositionBasedDynamics/src/ExternalProject_PositionBasedDynamics/'.\nYou will have to resolve the conflicts manually")
+          message(FATAL_ERROR "\nFailed to unstash changes in: 'C:/SPlisHSPlasH/extern/PositionBasedDynamics/src/ExternalProject_PositionBasedDynamics/'.\nYou will have to resolve the conflicts manually")
         endif()
       endif()
     endif()
   else()
     execute_process(
-      COMMAND "d:/Program Files/Git/cmd/git.exe" checkout 36f571d27718f8d3fca9cd3344d47f2c3a1e4a09
-      WORKING_DIRECTORY "D:/Projects/MySPlishSPlasH/extern/PositionBasedDynamics/src/ExternalProject_PositionBasedDynamics"
+      COMMAND "D:/Program Files/Git/cmd/git.exe" checkout 36f571d27718f8d3fca9cd3344d47f2c3a1e4a09
+      WORKING_DIRECTORY "C:/SPlisHSPlasH/extern/PositionBasedDynamics/src/ExternalProject_PositionBasedDynamics"
       RESULT_VARIABLE error_code
       )
     if(error_code)
@@ -149,12 +149,12 @@ if(error_code OR is_remote_ref OR NOT ("${tag_sha}" STREQUAL "${head_sha}"))
   endif()
 
   execute_process(
-    COMMAND "d:/Program Files/Git/cmd/git.exe" submodule update --recursive 
-    WORKING_DIRECTORY "D:/Projects/MySPlishSPlasH/extern/PositionBasedDynamics/src/ExternalProject_PositionBasedDynamics/"
+    COMMAND "D:/Program Files/Git/cmd/git.exe" submodule update --recursive --init 
+    WORKING_DIRECTORY "C:/SPlisHSPlasH/extern/PositionBasedDynamics/src/ExternalProject_PositionBasedDynamics/"
     RESULT_VARIABLE error_code
     )
   if(error_code)
-    message(FATAL_ERROR "Failed to update submodules in: 'D:/Projects/MySPlishSPlasH/extern/PositionBasedDynamics/src/ExternalProject_PositionBasedDynamics/'")
+    message(FATAL_ERROR "Failed to update submodules in: 'C:/SPlisHSPlasH/extern/PositionBasedDynamics/src/ExternalProject_PositionBasedDynamics/'")
   endif()
 endif()
 

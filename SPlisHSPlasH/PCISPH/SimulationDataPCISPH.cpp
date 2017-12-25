@@ -26,11 +26,11 @@ void SimulationDataPCISPH::init(FluidModel *model)
 	m_pressure.resize(model->numParticles(), 0.0);
 	m_pressureAccel.resize(model->numParticles(), SPH::Vector3r::Zero());
 
-	m_stress.resize(model->numParticles, SPH::Matrix3r::Zero());//new initialization
+//	m_stress.resize(model->numParticles, SPH::Matrix3r::Zero());//new initialization
 
 	std::cout << "Initialize PCISPH scaling factor\n";
 	m_pcisph_factor = 0.0;
-	m_stress_factor = Matrix3r::Zero();//new initialization
+	//m_stress_factor = Matrix3r::Zero();//new initialization
 	model->getNeighborhoodSearch()->find_neighbors();
 
 	// Find prototype particle
@@ -90,7 +90,7 @@ void SimulationDataPCISPH::init(FluidModel *model)
 	m_pcisph_factor = 1.0 / (beta * (sumGradW.squaredNorm() + sumGradW2));
 
 	const Real temp = 2.0*model->getMass(index)*model->getMass(index) / (density0*density0);
-	m_stress_factor = temp*sumGradWProduct/density0;
+	//m_stress_factor = temp*sumGradWProduct/density0;
 }
 
 void SimulationDataPCISPH::cleanup()
@@ -101,7 +101,7 @@ void SimulationDataPCISPH::cleanup()
 	m_pressure.clear();
 	m_pressureAccel.clear();
 
-	m_stress.clear();
+	//m_stress.clear();
 }
 
 void SimulationDataPCISPH::reset()
@@ -120,5 +120,5 @@ void SimulationDataPCISPH::performNeighborhoodSearchSort()
 	d.sort_field(&m_densityAdv[0]);
 	d.sort_field(&m_pressure[0]);
 	d.sort_field(&m_pressureAccel[0]);
-	d.sort_field(&m_stress[0]);
+	//d.sort_field(&m_stress[0]);
 }

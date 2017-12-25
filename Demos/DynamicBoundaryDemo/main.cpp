@@ -225,7 +225,7 @@ void initBoundaryData()
 {
 	std::string base_path = FileSystem::getFilePath(base.getSceneFile());
 	SceneLoader::Scene &scene = base.getScene();
-	const bool useCache = base.getUseParticleCaching();
+	const bool useCache =  base.getUseParticleCaching();
 
 	for (unsigned int i = 0; i < scene.boundaryModels.size(); i++)
 	{

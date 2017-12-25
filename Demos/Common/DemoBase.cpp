@@ -37,7 +37,7 @@ void DemoBase::init(int argc, char **argv, const char *demoName)
 	m_exePath = FileSystem::getProgramPath();
 	m_dataPath = FileSystem::normalizePath(getExePath() + "/" + std::string(SPH_DATA_PATH));
 
-	m_sceneFile = getDataPath() + "/Scenes/DoubleDamBreak.json";
+	m_sceneFile = getDataPath() + "/Scenes/LandSlide.json";
 	setUseParticleCaching(true);
 	for (int i = 1; i < argc; i++)
 	{
@@ -51,7 +51,7 @@ void DemoBase::init(int argc, char **argv, const char *demoName)
 				m_sceneFile = FileSystem::normalizePath(m_exePath + "/" + m_sceneFile);
 		}
 	}
-
+	
 	if (m_sceneFile != "")
 		SceneLoader::readScene(m_sceneFile.c_str(), m_scene);
 	else

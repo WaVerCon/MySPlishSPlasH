@@ -21,7 +21,7 @@ PoissonDiskSampling::PoissonDiskSampling() :
 
 void PoissonDiskSampling::sampleMesh(const unsigned int numVertices, const Vector3r *vertices, const unsigned int numFaces, const unsigned int *faces,
 	const Real minRadius, const unsigned int numTrials,
-	unsigned int distanceNorm, std::vector<Vector3r> &samples)
+	unsigned int distanceNorm, std::vector<Vector3r> &samples)//default:numTrials=10,distanceNorm=1
 {
 	m_r = minRadius;
 	m_numTrials = numTrials;

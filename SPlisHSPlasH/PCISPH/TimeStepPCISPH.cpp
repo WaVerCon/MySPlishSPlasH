@@ -76,7 +76,7 @@ void TimeStepPCISPH::pressureSolve()
 		lastV = m_model->getVelocity(0, i);
 		m_simulationData.getPressure(i) = 0.0;
 		m_simulationData.getPressureAccel(i).setZero();
-		m_simulationData.getStress(i).setZero();
+//		m_simulationData.getStress(i).setZero();
 	}
 
 	Real avg_density_err = 0;

@@ -19,14 +19,14 @@ namespace SPH
 		protected:	
 			FluidModel *m_model;
 			Real m_pcisph_factor;
-			Matrix3r m_stress_factor;//stress scaling factor
+			//Matrix3r m_stress_factor;//stress scaling factor
 
 			std::vector<Vector3r> m_lastX;
 			std::vector<Vector3r> m_lastV;
 			std::vector<Real> m_densityAdv;
 			std::vector<Real> m_pressure;
 			std::vector<Vector3r> m_pressureAccel;
-			std::vector<Matrix3r> m_stress;//record stress tensor
+			//std::vector<Matrix3r> m_stress;//record stress tensor
 
 		public:
 			/** Initialize the arrays containing the particle data.
@@ -47,7 +47,7 @@ namespace SPH
 			void performNeighborhoodSearchSort();
 
 			Real getPCISPH_ScalingFactor() { return m_pcisph_factor; }
-			Matrix3r getStressScalingFactor() { return m_stress_factor; }
+			//Matrix3r getStressScalingFactor() { return m_stress_factor; }
 
 			FORCE_INLINE Vector3r &getLastPosition(const unsigned int i)
 			{
@@ -109,7 +109,7 @@ namespace SPH
 				m_pressure[i] = p;
 			}
 			//stress getter and setter
-			FORCE_INLINE const Matrix3r getStress(const unsigned int i) const
+			/*FORCE_INLINE const Matrix3r getStress(const unsigned int i) const
 			{
 				return m_stress[i];
 			}
@@ -123,7 +123,7 @@ namespace SPH
 			{
 				m_stress[i] = p;
 			}
-			
+			*/
 			FORCE_INLINE Vector3r &getPressureAccel(const unsigned int i)
 			{
 				return m_pressureAccel[i];
